@@ -125,7 +125,7 @@ def cronalive():
         return render_template("CoronaUpdate.html", coronadata=data1, dicc=dicc)
     else:
         if data.status_code == 200:
-            # district = districtdata()
+            district = districtdata()
             soup = BeautifulSoup(data.text, 'lxml')
             var = [va.text for va in soup.find_all('div', attrs={'class':'maincounter-number'})]
             table_rows = soup.find_all('tr')
@@ -158,12 +158,12 @@ def cronalive():
                 day = dtime
                 if num1 == " ":
                     num1 = 0
-                # connection = sqll.connect("coronadatabase.db")
-                # pointer = connection.cursor()
-                # num = num1
-                # pointer.execute("update  corona3 set id='{}', country='{}', totalcase='{}', newcase='{}', totaldeath='{}', newdeath='{}', recoverdcase='{}', activecase='{}', criticalcase='{}', totcase1mp='{}', totdeath1Mp='{}', totaltest='{}', m1_poptest='{}', population='{}', day='{}' where id ='{}'".format(num1, country, totalcase, newcase, totaldeath, newdeath, totalrecovered, activecase, serious, totcase1mp, death1mp, totaltest, test1m_pop, population, day, num))
+                connection = sqll.connect("coronadatabase.db")
+                pointer = connection.cursor()
+                num = num1
+                pointer.execute("update  corona3 set id='{}', country='{}', totalcase='{}', newcase='{}', totaldeath='{}', newdeath='{}', recoverdcase='{}', activecase='{}', criticalcase='{}', totcase1mp='{}', totdeath1Mp='{}', totaltest='{}', m1_poptest='{}', population='{}', day='{}' where id ='{}'".format(num1, country, totalcase, newcase, totaldeath, newdeath, totalrecovered, activecase, serious, totcase1mp, death1mp, totaltest, test1m_pop, population, day, num))
                 dicc = {"wc":var[0], "wr":var[2], 'wd':var[1]}
-                # connection.commit()
+                connection.commit()
             return render_template("CoronaUpdate.html", coronadata=new, dicc=dicc)
 def connectionnotfund():
     ''' when connection not fund then it will run  '''
