@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <style>
+            #div1{text-align: center; width: 100%; background:url('/static/images (2).jpg');padding-top: 100px;padding-bottom:100px ;}
+            .borde{ border-radius:4px; border-color: blanchedalmond; padding-top:7px;padding-bottom:8px;padding-left:4px;width:40%;}
+            .btn{height:40px;}
+            #div2{padding-top: 40px;}
+            .table{border:solid 2px white;}
+        </style>
+    </head>
+    <body>
+        <div  class="container-fluid" style="background-color: lightgrey;text-align: center;"><div class="col-xl-12 col-sm-6">COVID-19 CORONAVIRUS PANDEMIC</div> </div>
+        <div class="row container-fluid">
+            <div class="col-xl-12 col-sm-6" style="text-align: center;">
+                <h2 style="color:blue;">CoronaCases On World :</h2>
+                {% if dicc.wc %}
+                <p>{{ dicc.wc }}</p>
+                {% endif %}
+                <h1 style="color:red">DEATH :</h1>
+                {% if dicc.wd %}
+                <p>{{ dicc.wd }}</p>
+                {% endif %}
+                <h1 style="color: green;">Recoverd Cases :</h1>
+                {% if dicc.wr %}
+                <p>{{ dicc.wr }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div id="div2" style="text-align: center;">
+            <form method="POST" action="/data">
+                <input type="search" class="borde" name="cname" placeholder="   SEARCH BY SATATE ">
+                <input class ="btn btn-primary"type="submit" name="search">
+                {% if error %}
+                <p>{{ error }}</p>
+                {% endif %}
+            </form>    
+        </div>
+        <div class="row container-fluid table-responsive"   style=" text-align: center;">
+            <div class="col">
+                {% if dicc.d0 %} 
+                <table class="table">
+                    <thead>
+                        <th>state/name</th>
+                        <th>TotalCase</th>
+                        <th>ActiveCase</th>
+                        <th>Recoverd</th>
+                        <th> Total Death</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ dicc.d0 }}</td>
+                            <td>{{ dicc.d1 }}</td>
+                            <td>{{ dicc.d2 }}</td>
+                            <td>{{ dicc.d3 }}</td>
+                            <td>{{ dicc.d4 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>    
+        </div>
+        <div class="container-fluid table-responsive" >
+            <table class="table table-bordered ">
+                <thead><th> # </th>
+                    <th>country</th>
+                    <th>Total case</th>
+                    <th>New case</th>
+                    <th>Total Deaths</th>
+                    <th>New Death</th>
+                    <th> TotalRecoverd </th>
+                    <th>Active case</th>
+                    <th>Critical case</th>
+                    <th>Death1M_pop case</th>
+                    <th>Total Tests</th>
+                     
+                    <th>Population</th>
+                </thead>
+                <tbody>{% if coronadata %}
+                    {% for j in coronadata[1::] %}
+                        <tr><td>{{ j.NO }}</td>
+                            <td>{{ j.country }}</td>
+                            <td>{{ j.total }}</td>
+                            <td>{{ j.newcase }}</td>
+                            <td>{{ j.totaldeath }}</td>
+                            <td>{{ j.newdeath }}</td>
+                            <td>{{ j.totalrecovered}}</td>
+                            <td>{{ j.activecase }}</td>
+                            <td>{{ j.serious }}</td>
+                            <td>{{ j.death1mp }}</td>
+                            <td>{{ j.totaltest }}</td>
+                             
+                            <td>{{ j.population }}</td>
+                            
+                        </tr>
+                       {% endfor %} 
+                       {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
